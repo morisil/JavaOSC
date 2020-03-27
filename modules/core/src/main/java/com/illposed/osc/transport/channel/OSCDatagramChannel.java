@@ -8,6 +8,7 @@
 
 package com.illposed.osc.transport.channel;
 
+import com.illposed.osc.BufferBytesReceiver;
 import com.illposed.osc.OSCPacket;
 import com.illposed.osc.OSCParseException;
 import com.illposed.osc.OSCParser;
@@ -95,7 +96,7 @@ public class OSCDatagramChannel extends SelectableChannel {
 		try {
 			begin();
 
-			final OSCSerializer serializer = serializerBuilder.buildSerializer(buffer);
+			final OSCSerializer serializer = serializerBuilder.buildSerializer(new BufferBytesReceiver(buffer));
 			buffer.rewind();
 			serializer.write(packet);
 			buffer.flip();
